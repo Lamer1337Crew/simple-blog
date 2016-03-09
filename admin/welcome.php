@@ -1,4 +1,6 @@
 <?php
+
+
 ?>
 
 <!DOCTYPE html>
@@ -21,26 +23,35 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">New</a></li>
-                    <li><a href="#">Posts</a></li>
-                    <li><a href="#">Temp</a></li>
+                    <li class="active" id="post-new"><a href="#">New</a></li>
+                    <li><a href="#" id="post-list">Posts</a></li>
+                    <li><a href="#" id="categories-editor">Categories</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-
     <div class="form-group">
-        <label for="usr">Title:</label>
-        <input type="text" class="form-control" id="title">
-    </div>
-    <div class="form-group">
-        <textarea class="form-control" rows="10" placeholder="What's up?" required></textarea>
-    </div>
-    <div class="form-group">
-        <button type="button" id="send-post" class="btn btn-success">Publish blog-post</button>
+        <input type="text" class="form-control" id="title" placeholder="Your title">
+        <br>
+        <input type="text" class="form-control" id="slug" placeholder="Your slug">
+        <br>
+        <textarea class="form-control" rows="10" placeholder="Your blog-post" required></textarea>
+        <br>
+        <button type="button" id="post-send" class="btn btn-success">Publish blog-post</button>
     </div>
 
+    <div class="message-done" style="display: none;">
+        Success!
+    </div>
+
+    <div class="post-list-container" style="display: none;">
+        lisst
+    </div>
+
+    <div class="categories-editor-container" style="display: none;">
+
+    </div>
 
 </div>
 
@@ -52,7 +63,36 @@
         $('.navbar-nav li').on('click', function () {
             $('.navbar-nav li').removeClass('active');
             $(this).addClass('active');
-        })
+        });
+
+        $('#post-send').on('click', function () {
+            $('.form-group').hide();
+            $('.message-done').show();
+
+            $.ajax({
+                type: 'POST',
+                url: 'admin.php',
+                data: {
+                    'event': 'admin',
+                    'type': 'new'
+                },
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+        });
+
+        $('#post-new').on('click', function () {
+            $('.form-group').show();
+            $('.message-done').hide();
+            $('.post-list-container').hide();
+        });
+
+        $('#post-list').on('click', function () {
+            $('.form-group').hide();
+            $('.message-done').hide();
+            $('.post-list-container').show();
+        });
     })
 </script>
 

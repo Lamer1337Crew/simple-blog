@@ -36,7 +36,7 @@
         <br>
         <input type="text" class="form-control" id="slug" placeholder="Your slug">
         <br>
-        <textarea class="form-control" rows="10" placeholder="Your blog-post" required></textarea>
+        <textarea class="form-control" rows="10" id="post" placeholder="Your blog-post" required></textarea>
         <br>
         <button type="button" id="post-send" class="btn btn-success">Publish blog-post</button>
     </div>
@@ -69,13 +69,19 @@
             $('.form-group').hide();
             $('.message-done').show();
 
+            var postData = {
+                'event': 'admin',
+                'type': 'new',
+                'title': $('#title').val(),
+                'slug': $('#slug').val(),
+                'post': $('#post').val(),
+                'category': '1'
+            };
+
             $.ajax({
                 type: 'POST',
                 url: 'admin.php',
-                data: {
-                    'event': 'admin',
-                    'type': 'new'
-                },
+                data: postData,
                 success: function (response) {
                     console.log(response);
                 }

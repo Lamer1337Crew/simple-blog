@@ -60,5 +60,20 @@ if (!class_exists('Db')) {
 
             return $results;
         }
+
+        public function insert($query)
+        {
+            $db = $this->connect();
+
+            if (!$db->set_charset("utf8")) {
+                //printf("Ошибка при загрузке набора символов utf8: %s\n", $db->error);
+            } else {
+                //printf("Текущий набор символов: %s\n", $db->character_set_name());
+            }
+
+            $result = $db->query($query);
+
+            return $result;
+        }
     }
 }

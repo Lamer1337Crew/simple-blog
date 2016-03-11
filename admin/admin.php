@@ -1,5 +1,10 @@
 <?php
 
+include "../includes/dbconfig.php";
+include "../includes/db.php";
+
+session_start();
+
 class admin
 {
     private $event;
@@ -21,7 +26,16 @@ class admin
 
     function start()
     {
-        echo $this->type;
+        if ($this->type == 'new') {
+
+            $db = new Db();
+
+            $result = $db->insert("INSERT INTO `posts` (`id`, `category_id`, `user_id`, `name`, `slug`, `content`, `created`) VALUES (NULL, '1', '2', $this->title, $this->slug, $this->post, NOW())");
+            if ($result) {
+                echo 'Post successfully added';
+            }
+        }
+
     }
 }
 

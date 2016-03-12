@@ -27,7 +27,6 @@ class admin
     function start()
     {
         if ($this->type == 'new') {
-
             $db = new Db();
 
             $result = $db->insert("INSERT INTO `posts` (`id`, `category_id`, `user_id`, `name`, `slug`, `content`, `created`) VALUES (NULL, '1', '2', $this->title, $this->slug, $this->post, NOW())");

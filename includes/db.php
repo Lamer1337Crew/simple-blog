@@ -2,11 +2,12 @@
 if (!class_exists('Db')) {
     class Db
     {
-        private static $instance;
+
+        protected static $instance = null;
 
         public static function getInstance()
         {
-            if (!self::$instance) {
+            if (!isset(self::$instance)) {
                 self::$instance = new self();
             }
             return self::$instance;
@@ -54,11 +55,13 @@ if (!class_exists('Db')) {
 
             $result = $db->query($query);
 
-            while ($row = $result->fetch_object()) {
-                $results[] = $row;
-            }
+            return $result;
 
-            return $results;
+//            while ($row = $result->fetch_object()) {
+//                $results[] = $row;
+//            }
+//
+//            return $results;
         }
 
         public function insert($query)

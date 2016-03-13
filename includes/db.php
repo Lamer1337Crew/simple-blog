@@ -44,7 +44,7 @@ if (!class_exists('Db')) {
 
         public function query($query)
         {
-            $results = array();
+            //$results = array();
             $db = $this->connect();
 
             if (!$db->set_charset("utf8")) {

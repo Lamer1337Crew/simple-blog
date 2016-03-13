@@ -1,5 +1,5 @@
 <?php
-
+header('Content-Type: text/html; charset=utf-8');
 include "../includes/dbconfig.php";
 include "../includes/db.php";
 
@@ -29,7 +29,9 @@ class admin
         if ($this->type == 'new') {
             $db = new Db();
 
-            $result = $db->insert("INSERT INTO `posts` (`id`, `category_id`, `user_id`, `name`, `slug`, `content`, `created`) VALUES (NULL, '1', '2', $this->title, $this->slug, $this->post, NOW())");
+            $insertQuery = "INSERT INTO `posts` (`id`, `category_id`, `user_id`, `name`, `slug`, `content`, `created`) VALUES (NULL, '1', '2', '$this->title', '$this->slug', '$this->post', NOW())";
+
+            $result = $db->query($insertQuery);
             if ($result) {
                 echo 'Post successfully added';
             }

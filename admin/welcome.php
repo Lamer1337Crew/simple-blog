@@ -26,13 +26,14 @@
                     <li class="active" id="post-new"><a href="#">New</a></li>
                     <li><a href="#" id="post-list">Posts</a></li>
                     <li><a href="#" id="categories-editor">Categories</a></li>
+                    <li><a href="../" id="categories-editor">Blog</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <div class="form-group">
-        <input type="text" class="form-control" id="title" placeholder="Your title">
+        <input type="text" class="form-control" id="title" placeholder="Your title" required>
         <br>
         <input type="text" class="form-control" id="slug" placeholder="Your slug">
         <br>
@@ -66,26 +67,28 @@
         });
 
         $('#post-send').on('click', function () {
-            $('.form-group').hide();
-            $('.message-done').show();
+            if ($('#title').val() && $('#post').val()) {
+                $('.form-group').hide();
+                $('.message-done').show();
 
-            var postData = {
-                'event': 'admin',
-                'type': 'new',
-                'title': $('#title').val(),
-                'slug': $('#slug').val(),
-                'post': $('#post').val(),
-                'category': '1'
-            };
+                var postData = {
+                    'event': 'admin',
+                    'type': 'new',
+                    'title': $('#title').val(),
+                    'slug': $('#slug').val(),
+                    'post': $('#post').val(),
+                    'category': '1'
+                };
 
-            $.ajax({
-                type: 'POST',
-                url: 'admin.php',
-                data: postData,
-                success: function (response) {
-                    console.log(response);
-                }
-            });
+                $.ajax({
+                    type: 'POST',
+                    url: 'admin.php',
+                    data: postData,
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            }
         });
 
         $('#post-new').on('click', function () {

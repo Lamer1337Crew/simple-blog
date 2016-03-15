@@ -1,5 +1,12 @@
 <?php
 
+include "../includes/dbconfig.php";
+include "../includes/db.php";
+
+session_start();
+
+$db = new Db();
+$result = $db->query("SELECT * FROM `posts` ORDER BY created DESC");
 
 ?>
 
@@ -47,7 +54,28 @@
     </div>
 
     <div class="post-list-container" style="display: none;">
-        lisst
+        <div class="container">
+            <div class="col-md-12">
+                <?php
+                while ($row = mysqli_fetch_array($result)) {
+                    echo '<div data-id="' . $row['id'] . '"><h1>' . $row['name'] . '</h1><p>' . $row['content'] . '</p><div><span class="badge">' . $row['created'] . '</span>
+          <div class="pull-right">
+               <span class="label label-default">category</span>
+               <span class="label label-primary">category</span>
+               <span class="label label-success">category</span>
+               <span class="label label-info">category</span>
+               <span class="label label-warning">category</span>
+               <span class="label label-danger">category</span>
+           </div>
+       </div>
+       <br>
+       <button type="button" class="btn btn-danger button-delete">Delete</button>
+       </div>
+       <hr>';
+                }
+                ?>
+            </div>
+        </div>
     </div>
 
     <div class="categories-editor-container" style="display: none;">
@@ -101,6 +129,12 @@
             $('.form-group').hide();
             $('.message-done').hide();
             $('.post-list-container').show();
+        });
+
+        $('.button-delete').on('click', function () {
+            var postID = $(this).parent().data('id');
+            console.info(postID);
+            //send ajax post with this ID to delete blog-post
         });
     })
 </script>

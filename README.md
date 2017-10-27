@@ -1,4 +1,4 @@
-# simple-blog
+# simple-blog :shit:
 
 
 Simple blog using php+mysql for learning purposes.
